@@ -18,12 +18,20 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /Users/younghwan/Desktop/Development/RunNetCoreWeb
 build_property._RazorSourceGeneratorDebug = 
 
+[/Users/younghwan/Desktop/Development/RunNetCoreWeb/Views/Club/index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQ2x1Yi9pbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/younghwan/Desktop/Development/RunNetCoreWeb/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/younghwan/Desktop/Development/RunNetCoreWeb/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/younghwan/Desktop/Development/RunNetCoreWeb/Views/Race/index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUmFjZS9pbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/younghwan/Desktop/Development/RunNetCoreWeb/Views/Shared/Error.cshtml]

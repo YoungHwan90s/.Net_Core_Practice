@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RunNetCoreWeb")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+846c8bb8cd9f2a5e9127218ad700ce614b2c195b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+236e98f213045d0e62372839a5a26e17522cc7a7")]
 [assembly: System.Reflection.AssemblyProductAttribute("RunNetCoreWeb")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RunNetCoreWeb")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
