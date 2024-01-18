@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RunNetCoreWeb.Data;
 using RunNetCoreWeb.Models;
 
@@ -17,6 +18,12 @@ namespace RunNetCoreWeb
         {
             List<Club> clubs = _context.Clubs.ToList();
             return View(clubs);
+        }
+
+        public IActionResult Detail(int id)
+        {
+            Club club = _context.Clubs.Include(a => a.Address).Where(x => x.Id == id).FirstOrDefault();
+            return View(club);
         }
     }
 }
