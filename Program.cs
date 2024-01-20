@@ -1,10 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using RunNetCoreWeb.Data;
+using RunNetCoreWeb.Interfaces;
+using RunNetCoreWeb.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// 3. Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddScoped<IClubRepository, ClubRepository>();
+builder.Services.AddScoped<IRaceRepository, RaceRepository>();
+
 
 // 1. Setting up database connection
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
