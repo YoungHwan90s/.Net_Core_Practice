@@ -2,4 +2,4 @@
 # .NET Core build folders
 bin/
 obj/
-appsettings.json/
+appsettings.json
