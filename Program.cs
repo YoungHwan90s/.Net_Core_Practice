@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using RunNetCoreWeb.Data;
+using RunNetCoreWeb.Helpers;
 using RunNetCoreWeb.Interfaces;
 using RunNetCoreWeb.Repository;
+using RunNetCoreWeb.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,7 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IClubRepository, ClubRepository>();
 builder.Services.AddScoped<IRaceRepository, RaceRepository>();
-
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
+builder.Services.AddScoped<IPhotoService, PhotoService>();
 
 // 1. Setting up database connection
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
