@@ -62,6 +62,76 @@ namespace RunNetCoreWeb.Controllers
             return View(raceVM);
         }
 
+        public async Task<IActionResult> Edit(int id)
+        {
+            var race = await _raceRepository.GetByIdAsync(id);
+            if (race == null)
+            {
+                return View("Error");
+            }
+            var clubVM = new EditRaceViewModel
+            {
+                Title = race.Title,
+                Description = race.Description,
+                AddressId = race.AddressId,
+                Address = race.Address,
+                URL = race.Image,
+                RaceCategory = race.RaceCategory
+            };
+            return View(clubVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(int id, EditRaceViewModel raceVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                ModelState.AddModelError("", "Failed to edit club");
+                return View("Edit", raceVM);
+            }
+
+            var userRace = await _raceRepository.GetByIdAsyncNoTracking(id);
+            if (userRace == null)
+            {
+                return View(raceVM);
+            }
+
+            try
+            {
+                await _photoService.DeletePhotoAsync(userRace.Image);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Could not delete photo");
+                return View(raceVM);
+            }
+
+            var photoResult = await _photoService.AddPhotoAsync(raceVM.Image);
+
+            // TroubleShooting - This will cause creating a new Address row
+            // var race = new Race
+            // {
+            //     Id = id,
+            //     Title = raceVM.Title,
+            //     Description = raceVM.Description,
+            //     Image = photoResult.Url.ToString(),
+            //     AddressId = raceVM.AddressId,
+            //     Address = raceVM.Address,
+            // };
+
+            // Refactor - new changes should be mapped so that new Address row won't be created
+            userRace.Title = raceVM.Title;
+            userRace.Description = raceVM.Description;
+            userRace.Image = photoResult.Url.ToString();
+            userRace.Address.Street = raceVM.Address.Street;
+            userRace.Address.City = raceVM.Address.City;
+            userRace.Address.State = raceVM.Address.State;
+            userRace.RaceCategory = raceVM.RaceCategory;
+
+            _raceRepository.Update(userRace);
+
+            return RedirectToAction("Index");
+        }
     }
 }
 
