@@ -72,7 +72,6 @@ namespace RunNetCoreWeb.Controllers
             {
                 Title = club.Title,
                 Description = club.Description,
-                AddressId = club.AddressId,
                 Address = club.Address,
                 URL = club.Image,
                 ClubCategory = club.ClubCategory

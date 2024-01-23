@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RunNetCoreWeb.Data;
 
@@ -10,9 +11,10 @@ using RunNetCoreWeb.Data;
 namespace RunNetCoreWeb.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240123123733_editModelRelation")]
+    partial class editModelRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,6 +31,12 @@ namespace RunNetCoreWeb.Migrations
                         .IsRequired()
                         .HasColumnType("longtext");
 
+                    b.Property<int?>("ClubId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RaceId")
+                        .HasColumnType("int");
+
                     b.Property<string>("State")
                         .IsRequired()
                         .HasColumnType("longtext");
@@ -38,6 +46,11 @@ namespace RunNetCoreWeb.Migrations
                         .HasColumnType("longtext");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ClubId");
+
+                    b.HasIndex("RaceId")
+                        .IsUnique();
 
                     b.ToTable("Addresses");
                 });
@@ -146,11 +159,24 @@ namespace RunNetCoreWeb.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId");
-
                     b.HasIndex("AppUserId");
 
                     b.ToTable("Races");
+                });
+
+            modelBuilder.Entity("RunNetCoreWeb.Models.Address", b =>
+                {
+                    b.HasOne("RunNetCoreWeb.Models.Club", "Club")
+                        .WithMany()
+                        .HasForeignKey("ClubId");
+
+                    b.HasOne("RunNetCoreWeb.Models.Race", "Race")
+                        .WithOne("Address")
+                        .HasForeignKey("RunNetCoreWeb.Models.Address", "RaceId");
+
+                    b.Navigation("Club");
+
+                    b.Navigation("Race");
                 });
 
             modelBuilder.Entity("RunNetCoreWeb.Models.AppUser", b =>
@@ -181,17 +207,9 @@ namespace RunNetCoreWeb.Migrations
 
             modelBuilder.Entity("RunNetCoreWeb.Models.Race", b =>
                 {
-                    b.HasOne("RunNetCoreWeb.Models.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("RunNetCoreWeb.Models.AppUser", "AppUser")
                         .WithMany("Races")
                         .HasForeignKey("AppUserId");
-
-                    b.Navigation("Address");
 
                     b.Navigation("AppUser");
                 });
@@ -201,6 +219,12 @@ namespace RunNetCoreWeb.Migrations
                     b.Navigation("Clubs");
 
                     b.Navigation("Races");
+                });
+
+            modelBuilder.Entity("RunNetCoreWeb.Models.Race", b =>
+                {
+                    b.Navigation("Address")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -73,7 +73,6 @@ namespace RunNetCoreWeb.Controllers
             {
                 Title = race.Title,
                 Description = race.Description,
-                AddressId = race.AddressId,
                 Address = race.Address,
                 URL = race.Image,
                 RaceCategory = race.RaceCategory

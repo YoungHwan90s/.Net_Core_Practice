@@ -3,7 +3,6 @@
 @model EditRaceViewModel
 
 <form method="post" asp-action="Edit" enctype="multipart/form-data">
-    <input type="hidden" asp-for="AddressId" id="AddressId" />
     <div class="form-group">
         @* label asp-for="Title" 하면 모델 속성과 바인딩 할 수 있다. *@
         <label asp-for="Title"></label>
@@ -42,7 +41,6 @@
         <img class="card-img-top" src="@Model.URL" width="100" height="225" alt="Card image cap">
         <input asp-for="Image" type="file" class="form-control" placeholder="Image">
         <span asp-validation-for="Image" class="text-danger"></span>
-
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
