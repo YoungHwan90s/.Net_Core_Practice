@@ -17,7 +17,7 @@ namespace RunNetCoreWeb.Models
         public string? Twitter { get; set; }
         public string? Facebook { get; set; }
         public string? Contact { get; set; }
-        [ForeignKey("Addres")]
+        [ForeignKey("Address")]
         public int AddressId { get; set; }
         public Address Address { get; set; }
         public RaceCategory RaceCategory { get; set; }

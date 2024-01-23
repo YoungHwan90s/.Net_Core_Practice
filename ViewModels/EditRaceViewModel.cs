@@ -6,7 +6,6 @@ namespace RunNetCoreWeb.ViewModels
 {
     public class EditRaceViewModel
     {
-        [Key]
         [Display(Name = "제목")]
         [Required(ErrorMessage = "제목은 필수 항목입니다.")]
         [RegularExpression("^[A-Za-z0-9가-힣]+$", ErrorMessage = "올바르지 않은 형식입니다. 알파벳 대소문자, 숫자, 한글만 허용됩니다.")]
