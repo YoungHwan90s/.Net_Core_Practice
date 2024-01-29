@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RunNetCoreWeb.Data;
 using RunNetCoreWeb.Helpers;
 using RunNetCoreWeb.Interfaces;
+using RunNetCoreWeb.Models;
 using RunNetCoreWeb.Repository;
 using RunNetCoreWeb.Services;
 
@@ -20,14 +23,21 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
+// 4. Add Identity setup
+builder.Services.AddIdentity<AppUser, IdentityRole>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie();
 
 var app = builder.Build();
 
 // 2. Seeding data
 if (args.Length == 1 && args[0].ToLower() == "seeddata")
 {
-    //await Seed.SeedUsersAndRolesAsync(app);
-    Seed.SeedData(app);
+    await Seed.SeedUsersAndRolesAsync(app);
+    //Seed.SeedData(app);
 }
 
 // Configure the HTTP request pipeline.
