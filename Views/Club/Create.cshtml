@@ -15,8 +15,12 @@
     </div>
     <div class="form-group">
         <label asp-for="ClubCategory">ClubCategory</label>
-        <select asp-for="ClubCategory" asp-items="@Html.GetEnumSelectList<ClubCategory>()" class="form-control">
+        <select asp-for="ClubCategory" class="form-control">
             <option>--Select--</option>
+            @foreach (ClubCategory category in Enum.GetValues(typeof(ClubCategory)))
+            {
+                <option value="@category.GetEnumMemberValue()">@category.ToString()</option>
+            }
         </select>
         <span asp-validation-for="ClubCategory" class="text-danger"></span>
     </div>
