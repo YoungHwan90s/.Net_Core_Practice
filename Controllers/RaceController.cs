@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using RunNetCoreWeb.Data;
 using RunNetCoreWeb.Interfaces;
 using RunNetCoreWeb.Models;
 using RunNetCoreWeb.ViewModels;
