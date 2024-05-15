@@ -4,7 +4,6 @@
 
 <form method="post" asp-action="Edit" enctype="multipart/form-data">
     <div class="form-group">
-        @* label asp-for="Title" 하면 모델 속성과 바인딩 할 수 있다. *@
         <label asp-for="Title"></label>
         <input asp-for="Title" class="form-control" placeholder="Title">
         <span asp-validation-for="Title" class="text-danger"></span>
