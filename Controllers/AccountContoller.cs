@@ -90,11 +90,17 @@ namespace RunNetCoreWeb.Controllers
             {
                 await _userManager.AddToRoleAsync(newUser, UserRoles.User);
             }
+            else
+            {
+                TempData["Error"] = string.Join(", ", newUserResponse.Errors.Select(e => e.Description));
+
+                return View(registerViewModel);
+            }
 
             return RedirectToAction("Index", "Race");
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

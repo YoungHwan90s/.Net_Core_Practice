@@ -1,5 +1,3 @@
-using System.ComponentModel;
-
 namespace RunNetCoreWeb.Data
 {
     public static class UserRoles
