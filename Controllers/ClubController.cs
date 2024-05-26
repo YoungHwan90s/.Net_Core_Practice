@@ -30,7 +30,9 @@ namespace RunNetCoreWeb.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var curUserId = HttpContext.User.GetUserId();
+            var createClubViewModel = new CreateClubViewModel { AppUserId = curUserId };
+            return View(createClubViewModel);
         }
 
         [HttpPost]
@@ -49,7 +51,8 @@ namespace RunNetCoreWeb.Controllers
                         Street = clubVM.Address.Street,
                         City = clubVM.Address.City,
                         State = clubVM.Address.State,
-                    }
+                    },
+                    AppUserId = clubVM.AppUserId,
                 };
                 _clubRepository.Add(club);
                 return RedirectToAction("index");

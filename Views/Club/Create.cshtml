@@ -3,6 +3,7 @@
 @model CreateClubViewModel
 
 <form method="post" asp-action="Create" enctype="multipart/form-data">
+    <input type="hidden" id="AppUserId" name="AppUserId" asp-for="AppUserId">
     <div class="form-group">
         <label asp-for="Title">Title</label>
         <input asp-for="Title" class="form-control" placeholder="Title">
@@ -15,12 +16,12 @@
     </div>
     <div class="form-group">
         <label asp-for="ClubCategory">ClubCategory</label>
-        <select asp-for="ClubCategory" class="form-control">
+        <select asp-for="ClubCategory" class="form-control" asp-items="@Html.GetEnumSelectList<ClubCategory>()">
             <option>--Select--</option>
-            @foreach (ClubCategory category in Enum.GetValues(typeof(ClubCategory)))
+            @* @foreach (ClubCategory category in Enum.GetValues(typeof(ClubCategory)))
             {
                 <option value="@category.GetEnumMemberValue()">@category.ToString()</option>
-            }
+            } *@
         </select>
         <span asp-validation-for="ClubCategory" class="text-danger"></span>
     </div>

@@ -10,30 +10,40 @@ using RunNetCoreWeb.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 3. Add services to the container.
+// Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IClubRepository, ClubRepository>();
 builder.Services.AddScoped<IRaceRepository, RaceRepository>();
+builder.Services.AddScoped<IDashboardRepository, DashboardRepository>();
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 builder.Services.AddScoped<IPhotoService, PhotoService>();
 
-// 1. Setting up database connection
+// Setting up database connection
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
-// 4. Add Identity setup
+// Add Identity setup
 builder.Services.AddIdentity<AppUser, IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
+builder.Services.AddAuthorization();
+
+// When unauthroized or unauthenticated users approach -
+// [Authorize] or [Authorize(Roles = "Admin")]in the contorller -
+// Redirect to login or access denied page
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie();
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+        options.AccessDeniedPath = "/Account/AccessDenied";
+    });
 
 var app = builder.Build();
 
-// 2. Seeding data
+// Seeding data
 if (args.Length == 1 && args[0].ToLower() == "seeddata")
 {
     await Seed.SeedUsersAndRolesAsync(app);
@@ -44,7 +54,6 @@ if (args.Length == 1 && args[0].ToLower() == "seeddata")
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 

@@ -29,7 +29,9 @@ namespace RunNetCoreWeb.Controllers
 
         public IActionResult Create()
         {
-            return View();
+            var curUserId = HttpContext.User.GetUserId();
+            var createRaceViewModel = new CreateRaceViewModel { AppUserId = curUserId };
+            return View(createRaceViewModel);
         }
 
         [HttpPost]
@@ -48,7 +50,8 @@ namespace RunNetCoreWeb.Controllers
                         Street = raceVM.Address.Street,
                         City = raceVM.Address.City,
                         State = raceVM.Address.State,
-                    }
+                    },
+                    AppUserId = raceVM.AppUserId,
                 };
                 _raceRepository.Add(race);
                 return RedirectToAction("index");
