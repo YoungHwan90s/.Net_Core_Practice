@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RunNetCoreWeb.Data;
+using RunNetCoreWeb.Extensions.Configuration;
 using RunNetCoreWeb.Helpers;
 using RunNetCoreWeb.Interfaces;
 using RunNetCoreWeb.Models;
@@ -32,16 +33,17 @@ builder.Services.AddIdentity<AppUser, IdentityRole>()
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddAuthorization();
+builder.Services.AddAuthenticateService();
 
 // When unauthroized or unauthenticated users approach -
 // [Authorize] or [Authorize(Roles = "Admin")]in the contorller -
 // Redirect to login or access denied page
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>
-    {
-        options.LoginPath = "/Account/Login";
-        options.AccessDeniedPath = "/Account/AccessDenied";
-    });
+// builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+//     .AddCookie(options =>
+//     {
+//         options.LoginPath = "/Account/Login";
+//         options.AccessDeniedPath = "/Account/AccessDenied";
+//     });
 
 var app = builder.Build();
 
